@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Brand Elevate - Marketing Agency</title>
 
-    <script defer src="script.js"></script>
+    <script defer src="java.js"></script>
     <style>
         * {
     margin: 0;
@@ -16,7 +16,7 @@
 
 body {
     background-color: #f8f9fa;
-    color: #333;
+    color: #141313;
 }
 
 header {
@@ -24,7 +24,7 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 20px;
-    background-color: #0073e6;
+    background-color: #000000;
     color: white;
 }
 
@@ -50,7 +50,7 @@ nav ul li a {
 #home {
     text-align: center;
     padding: 100px 20px;
-    background-color:#4079b1 ;
+    background-color:#000000 ;
     color: white;
 }
 
@@ -135,6 +135,14 @@ footer {
     background-color: #333;
     color: white;
 }
+.gillete{
+    padding: 20px 10px;
+
+}
+.lays{
+    padding: 20px 10px;
+}
+
     </style>
 </head>
 <body>
@@ -182,7 +190,9 @@ footer {
         <div class="clients-container">
         <div class="clients">
             <h3>Lays India</h3>
-            <img width="300px" height="200px" src="Lays-logo.jpg" alt="lays">
+            <div class="lays">
+            <img width="200px" height="200px" src="Lays-logo.jpg" alt="lays">
+        </div>
         </div>
         <div class="clients">
             <h3>Vivo</h3>
@@ -190,7 +200,9 @@ footer {
         </div>
         <div class="clients">
             <h3>Gillette</h3>
-            <img src="download (1).png" alt="Gillette">
+            <div class="gillete">
+            <img width="200px" height="200px" src="download (1).png" alt="Gillette">
+            </div>
         </div>
 
         </div>
@@ -211,23 +223,59 @@ footer {
         <p>&copy; 2025 Brand Elevate. All Rights Reserved.</p>
     </footer>
     <script>
-        document.getElementById("contactForm").addEventListener("submit", function(event) {
-    event.preventDefault();
-
-    let name = document.getElementById("name").value.trim();
-    let email = document.getElementById("email").value.trim();
-    let message = document.getElementById("message").value.trim();
-    let formMessage = document.getElementById("formMessage");
-
-    if (name === "" || email === "" || message === "") {
-        formMessage.style.color = "red";
-        formMessage.textContent = "Please fill out all fields.";
-    } else {
+document.addEventListener("DOMContentLoaded", function () {
+    // Smooth scrolling for navigation links
+    const navLinks = document.querySelectorAll("nav ul li a");
+    
+    navLinks.forEach(link => {
+        link.addEventListener("click", function (event) {
+            event.preventDefault();
+            const targetId = this.getAttribute("href").substring(1);
+            const targetSection = document.getElementById(targetId);
+            
+            if (targetSection) {
+                window.scrollTo({
+                    top: targetSection.offsetTop - 50,
+                    behavior: "smooth"
+                });
+            }
+        });
+    });
+    
+    // Form validation
+    const contactForm = document.getElementById("contactForm");
+    const formMessage = document.getElementById("formMessage");
+    
+    contactForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        
+        const name = document.getElementById("name").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const message = document.getElementById("message").value.trim();
+        
+        if (name === "" || email === "" || message === "") {
+            formMessage.textContent = "Please fill out all fields.";
+            formMessage.style.color = "red";
+            return;
+        }
+        
+        if (!validateEmail(email)) {
+            formMessage.textContent = "Please enter a valid email address.";
+            formMessage.style.color = "red";
+            return;
+        }
+        
+        formMessage.textContent = "Thank you! Your message has been sent.";
         formMessage.style.color = "green";
-        formMessage.textContent = "Message sent successfully!";
-        document.getElementById("contactForm").reset();
+        contactForm.reset();
+    });
+    
+    function validateEmail(email) {
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailPattern.test(email);
     }
 });
+
     </script>
 </body>
 </html>
